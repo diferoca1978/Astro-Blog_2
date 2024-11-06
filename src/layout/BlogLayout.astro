@@ -1,11 +1,13 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
+import '../styles/global.css';
+// const { title, ...rest } = Astro.props;
+// const frontmatter = rest.frontmatter;
 
-interface Props {
-  title?: string;
-}
-
-const { title } = Astro.props;
+// interface Props {
+//   title?: string;
+// }
+const {title} = Astro.props
 ---
 <html lang="en">
 	<head>
@@ -18,7 +20,7 @@ const { title } = Astro.props;
     <ViewTransitions/>
 	</head>
 	<body class="bg-slate-900">
-    <a href="/"> Back</a>
+    <a href="/" id="back"> Back</a>
 		<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <slot />
     </main>

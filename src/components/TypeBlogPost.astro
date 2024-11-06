@@ -1,0 +1,35 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content'
+
+interface Props {
+  post: CollectionEntry<"blog">
+}
+
+const { post } = Astro.props;
+const frontmatter = post.data;
+---
+
+<div class="lg:flex">
+  <Image
+    class="object-cover w-full h-56 rounded-lg lg:w-64"
+    src={frontmatter.image}
+    alt={frontmatter.title}
+    width='500'
+    height='220'
+    quality='low'
+    loading='lazy'
+    transition:name={`${post.slug}-image`}
+  />
+
+  <div class="flex flex-col justify-between py-6 lg:mx-6">
+    <a href={`/posts/${post.slug}`} class="text-xl font-semibold text-slate-300 hover:underline">
+      {frontmatter.title}
+      {frontmatter.description}
+    </a>
+
+    <span class="text-sm text-gray-500"
+      >{frontmatter.date.toString().slice(0, 10)}</span
+    >
+  </div>
+</div>

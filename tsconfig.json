@@ -1,3 +1,11 @@
 {
-  "extends": "astro/tsconfigs/strict"
+  // Included with "astro/tsconfigs/strict" or "astro/tsconfigs/strictest"
+  "extends": "astro/tsconfigs/strict",
+
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
 }

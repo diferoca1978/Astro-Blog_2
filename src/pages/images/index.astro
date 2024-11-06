@@ -1,0 +1,48 @@
+---
+import MainLayout from "@/layout/MainLayout.astro";
+import {Image, Picture} from "astro:assets";
+import post05 from '../../assets/images-in/post-05.png'
+---
+
+<MainLayout>
+  <div class="flex flex-col justify-center items-center text-slate-300 text-xl space-y-3 ">
+    <!-- <div class="container space-y-3">
+      <h1>Image whitout optimization</h1>
+      <img src="/assets/images/post-05.png" alt="post-05" height="250px" width="250px">
+    </div> -->
+
+    <div class="container space-y-3">
+      <h1>Image whit default optimization</h1>
+      <!-- To optimize the image, is necessary to use the Image component, but the most important thing is bundle the images into a folder called assets and also introduce it in to src/ folder, to then can import the image as a component to use it in src property of the Image component  -->
+      <Image src={post05} alt='post-05' width='250' height='250' />
+    </div>
+
+    <!-- <div class="container space-y-3">
+      <h1>Image whit optimization low quality</h1>
+      <Image src={post05} alt='post-05' width='350' height='350' quality='low' />
+    </div>
+
+    <div class="container space-y-3">
+      <h1>Image whit optimization high quality</h1>
+      <Image src={post05} alt='post-05' width='500' height='500' quality='high' />
+    </div>
+
+    <div class="container space-y-3">
+      <h1>Image whit optimization using different atributes</h1>
+      <Image src={post05} alt='post-05' width='650' height='650' format="avif" />
+    </div> -->
+
+    <div class="container space-y-3">
+      <h1>Image whit super optimization using picture component with formats property</h1>
+      <Picture src={post05} alt='post-05' width='750' height='750' formats={['webp', 'avif', 'jpeg', 'png']} />
+    </div>
+
+    <div class="container space-y-3">
+      <h1>Image whit super optimization using picture component with widths property </h1>
+      <Picture src={post05} alt='post-05' width='250' height='250' widths={[240, 540, 720, post05.width]}
+      sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${post05.width}px`} /> 
+    </div>
+  </div>
+
+
+</MainLayout>

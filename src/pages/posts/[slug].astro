@@ -1,0 +1,73 @@
+---
+import { getCollection } from "astro:content";
+import type { GetStaticPaths } from "astro";
+import BlogLayout from "@/layout/BlogLayout.astro";
+import { render } from "astro:content";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+
+
+export const getStaticPaths = (async() => {
+
+  const posts = await getCollection('blog');
+  
+  return posts.map(post => ({
+    params: {slug: post.slug},
+    props: {post}
+  }))
+}) satisfies GetStaticPaths;
+
+const {post} = Astro.props
+const frontmatter = post.data
+
+
+const {Content, headings} = await render(post)
+
+---
+
+<BlogLayout title = {frontmatter.title}>
+  <h1 class="text-xs font-semibold text-slate-300 italic mb-0">{frontmatter.title}</h1>
+  <h4 class="text-sm text-slate-500 mb-2">Author: {frontmatter.author}</h4>
+
+  <!-- Show the image -->
+
+  <Image 
+  src={frontmatter.image} 
+  alt={frontmatter.title} 
+  width={500}
+  height={500}
+  class='rounded-md object-cover h-60 w-full my-5 '
+  transition:name={`${post.slug}-image`}
+  />
+
+  <!-- Through the headings array, can create a table of contents based on the headings of the markdown  -->
+
+  <h3>Table of Contents</h3>
+  <ul>
+    {headings.map((heading, index) => (
+      <li>
+        <a href={`#${heading.slug}`}>
+          {index + 1}. {heading.text}
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <!-- Render the content from the Markdown file -->
+  <Content/>
+
+  <!-- Back to top -->
+
+  <div class="flex flex-col items-center space-y-0 fixed bottom-5 right-5 ">
+    <a href="#back"><Icon name="Arrow-top" class='text-2xl md:text-3xl'/></a>
+    <p class="hidden xl:block">Back to top</p>
+  </div>
+
+  
+
+</BlogLayout>
+
+
+
+
+
