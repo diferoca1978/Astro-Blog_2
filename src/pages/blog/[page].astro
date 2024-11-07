@@ -16,6 +16,7 @@ import TypeBlogPost from "@/components/TypeBlogPost.astro";
 
 <MainLayout>
   <div class="py-10 mx-auto">
+    <a href="/" class="text-blue-800 hover:underline hover:ease-in hover:duration-300">Back</a>
     <h1 class="text-3xl font-semibold capitalize lg:text-4xl text-slate-300">
       Paginate Blog
     </h1>
@@ -32,6 +33,7 @@ import TypeBlogPost from "@/components/TypeBlogPost.astro";
 <!--   page .. ?? prev   -->
     <a
       href={page.url.prev}
+      id="controls"
       class:list={{
         disabled: !page.url.prev,
       }}>Anteriores</a
@@ -44,6 +46,7 @@ import TypeBlogPost from "@/components/TypeBlogPost.astro";
 <!--   page .. ?? next   -->
     <a
       href={page.url.next}
+      id="controls"
       class:list={{
         disabled: !page.url.next,
       }}>Siguientes</a
@@ -52,7 +55,9 @@ import TypeBlogPost from "@/components/TypeBlogPost.astro";
 </MainLayout>
 
 <style>
-  a {
+
+
+  #controls {
     @apply bg-blue-500 text-white p-2 rounded hover:bg-blue-600 cursor-pointer;
   }
 

@@ -4,7 +4,7 @@ import MainLayout from '../layout/MainLayout.astro';
 
 import { getCollection } from 'astro:content';
 import TypeBlogPost from '@/components/TypeBlogPost.astro';
-const posts = await getCollection('blog');
+const posts = await getCollection('blog', (post) => post.data.draft === false); // To filter posts by draft flag previously set in content/config.ts, so if need to show only some posts, just apply this flag into each post.
 ---
 
 <MainLayout title="Blog">
@@ -16,7 +16,10 @@ const posts = await getCollection('blog');
         {SiteConfig.title}
       </h1>
 
-      <a href="/blog/1" class="text-lg font-semibold text-blue-800 hover:underline">Blogs by page</a>
+      <div class="flex flex-row gap-5">
+        <a href="/blog/1" class="text-lg font-semibold text-blue-800 hover:underline">Blogs by page</a>
+        <a href="/authors" class="text-lg font-semibold text-blue-800 hover:underline">Authors</a>
+      </div>
 
       <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
         {posts.map((post) => <TypeBlogPost post={post} />)}

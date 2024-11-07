@@ -32,20 +32,22 @@ const author = await getEntry('author', post.data.author.id);
 
   <!-- Show the author info -->
   <div class="text-md text-gray-400 mb-0 flex flex-row mt-2">
-    <Image
-      src={author?.data.avatar}
+    {author && (
+      <Image
+      src={author.data.avatar}
       class="rounded-full"
-      alt={author?.data.name}
+      alt={author.data.name}
       width={50}
       height={50}
     />
 
     <div class="flex flex-col ml-5">
-      <a href={`/blog/${frontmatter.author.id}`}>{author?.data.name}</a>
+      <a href={`/blog/${frontmatter.author.id}`}>{author.data.name}</a>
       <span class="text-xs text-gray-200">
         {Formatter.formatDate(frontmatter.date)}
       </span>
     </div>
+    )}
   </div>
 
   <!-- Show the image post -->

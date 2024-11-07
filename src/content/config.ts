@@ -18,20 +18,28 @@ const blogCollection = defineCollection({
 
       // Relations
       tags: z.array(z.string()),
+
+      // Flag to filter posts
+      draft: z.boolean().default(false),
     }),
 });
 
-const authorsCollection = defineCollection({
+const authorCollection = defineCollection({
   type: 'data',
   schema: ({ image }) =>
     z.object({
       name: z.string(),
       avatar: image(),
+      twitter: z.string(),
+      linkedIn: z.string().url(),
+      github: z.string().url(),
+      bio: z.string(),
+      subtitle: z.string(),
     }),
 });
 
 // 4. Export a single `collections` object to register your collection(s)
 export const collections = {
   blog: blogCollection,
-  authors: authorsCollection,
+  author: authorCollection,
 };
