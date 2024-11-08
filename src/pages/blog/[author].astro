@@ -1,26 +1,32 @@
 ---
 import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
 import TypeBlogPost from "@/components/TypeBlogPost.astro";
 import { SiteConfig } from "@/config/Site-config";
 import MainLayout from "@/layout/MainLayout.astro";
-import { Image } from "astro:assets";
-import { getCollection } from "astro:content";
 
 
 export const getStaticPaths = (async () => {
-
-  const [posts, author] = await Promise.all([
-    getCollection('blog'),
+  //  const authors = await getCollection('author')
+  //  const posts =  await getCollection('blog')
+  const [authors, posts] = await Promise.all([
     getCollection('author'),
-  ])
-  
-  return author.map((author) => ({
+    getCollection('blog'),
+  ]);
+
+  return authors.map((author) => ({
     params: { author: author.id },
-    props: { blogPosts: posts.filter(post => post.data.author.id === author.id), author: author.data }
+    props: {
+      blogPosts: posts.filter((post) => post.data.author.id === author.id),
+      author: author.data,
+    },
   }));
 }) satisfies GetStaticPaths;
 
 const { blogPosts, author } = Astro.props;
+
+
 
 ---
 

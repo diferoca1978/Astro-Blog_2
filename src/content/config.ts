@@ -14,7 +14,7 @@ const blogCollection = defineCollection({
       }),
 
       // Relations
-      author: reference('authors'),
+      author: reference('author'),
 
       // Relations
       tags: z.array(z.string()),

@@ -5,7 +5,7 @@ import MainLayout from '@/layout/MainLayout.astro';
 import { getCollection } from 'astro:content';
 
 const authors = await getCollection('author');
-console.log("🚀 ~ authors:", authors)
+
 ---
 
 <MainLayout title="Authors">
